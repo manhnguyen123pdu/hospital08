@@ -1,0 +1,155 @@
+package com.example.hospitalProject.entity;
+
+import jakarta.persistence.*;
+
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
+
+@Entity
+@Table(name = "appointments")
+public class Appointment {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "appointment_id")
+    private int id;
+
+    @Column(name = "appointment_date", nullable = false)
+    private LocalDate appointmentDate;
+
+    @Column(name ="appointment_time", nullable = false )
+    private LocalTime appointmentTime;
+
+    @Column(name ="reason")
+    private String reason;
+
+    @Column(name = "diagnosis")
+    private String diagnosis;
+
+    @Column(name = "status", length = 30)
+    private String status;
+
+    @Column(name = "created_at")
+    private LocalDateTime createdAt;
+
+//    patient_id        INT NOT NULL,
+    @ManyToOne
+    @JoinColumn(name = "patient_id")
+    private Patient patient;
+
+//    doctor_id         INT NOT NULL,
+    @ManyToOne
+    @JoinColumn(name = "doctor_id")
+    private Doctor doctor;
+//    room_id           INT,
+    @ManyToOne
+    @JoinColumn(name = "room_id")
+    private Room room;
+
+    @OneToOne(mappedBy = "appointment", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private Invoice invoice;
+
+    public Appointment() {
+    }
+
+    public Appointment(LocalDate appointmentDate, LocalTime appointmentTime, String reason, String diagnosis, String status, LocalDateTime createdAt, Patient patient, Doctor doctor, Room room, Invoice invoice) {
+        this.appointmentDate = appointmentDate;
+        this.appointmentTime = appointmentTime;
+        this.reason = reason;
+        this.diagnosis = diagnosis;
+        this.status = status;
+        this.createdAt = createdAt;
+        this.patient = patient;
+        this.doctor = doctor;
+        this.room = room;
+        this.invoice = invoice;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public LocalDate getAppointmentDate() {
+        return appointmentDate;
+    }
+
+    public void setAppointmentDate(LocalDate appointmentDate) {
+        this.appointmentDate = appointmentDate;
+    }
+
+    public LocalTime getAppointmentTime() {
+        return appointmentTime;
+    }
+
+    public void setAppointmentTime(LocalTime appointmentTime) {
+        this.appointmentTime = appointmentTime;
+    }
+
+    public String getReason() {
+        return reason;
+    }
+
+    public void setReason(String reason) {
+        this.reason = reason;
+    }
+
+    public String getDiagnosis() {
+        return diagnosis;
+    }
+
+    public void setDiagnosis(String diagnosis) {
+        this.diagnosis = diagnosis;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    public LocalDateTime getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setCreatedAt(LocalDateTime createdAt) {
+        this.createdAt = createdAt;
+    }
+
+    public Patient getPatient() {
+        return patient;
+    }
+
+    public void setPatient(Patient patient) {
+        this.patient = patient;
+    }
+
+    public Doctor getDoctor() {
+        return doctor;
+    }
+
+    public void setDoctor(Doctor doctor) {
+        this.doctor = doctor;
+    }
+
+    public Room getRoom() {
+        return room;
+    }
+
+    public void setRoom(Room room) {
+        this.room = room;
+    }
+
+    public Invoice getInvoice() {
+        return invoice;
+    }
+
+    public void setInvoice(Invoice invoice) {
+        this.invoice = invoice;
+    }
+}
