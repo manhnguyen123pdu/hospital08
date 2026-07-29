@@ -2,6 +2,8 @@ package com.example.hospitalProject.entity;
 
 import jakarta.persistence.*;
 
+@Entity
+@Table(name = "invoice_medicines")
 public class InvoiceMedicine {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
