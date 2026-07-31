@@ -1,10 +1,13 @@
 package com.example.hospitalProject.controller;
 
+import com.example.hospitalProject.dto.request.CreateDepartment;
 import com.example.hospitalProject.dto.response.DepartmentDetailResponseDTO;
 import com.example.hospitalProject.dto.response.DepartmentResponseDTO;
 import com.example.hospitalProject.entity.Department;
 import com.example.hospitalProject.service.DepartmentService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -24,7 +27,14 @@ public class DeparmentController {
         return ResponseEntity.ok(departmentService.getDepartmentDetail(Integer.parseInt(id)));
     }
 
-
+    @PostMapping()
+    public ResponseEntity<Department> createDepartment(@Valid @RequestBody CreateDepartment createDepartment){
+        return ResponseEntity.status(HttpStatus.CREATED).body(departmentService.createDepartment(createDepartment));
+    }
+    @PutMapping("/{id}")
+    public ResponseEntity<Department> updateDepartment(@PathVariable String id, @Valid @RequestBody CreateDepartment createDepartment){
+        return ResponseEntity.ok(departmentService.update(Integer.parseInt(id), createDepartment));
+    }
     @DeleteMapping("/{id}")
     public ResponseEntity<String> deleteDepartment(@PathVariable String id){
          departmentService.deleteDepartment(Integer.parseInt(id));

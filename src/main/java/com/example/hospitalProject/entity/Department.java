@@ -2,6 +2,7 @@ package com.example.hospitalProject.entity;
 
 import jakarta.persistence.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -22,10 +23,10 @@ public class Department {
     private String phone;
 
     @OneToMany(mappedBy = "department", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private List<Doctor> doctors;
+    private List<Doctor> doctors =new ArrayList<>();
 
     @OneToMany(mappedBy = "department", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private List<Room> rooms;
+    private List<Room> rooms =new ArrayList<>();
 
     public Department() {
     }
